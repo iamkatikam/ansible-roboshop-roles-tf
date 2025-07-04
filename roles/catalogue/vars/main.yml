@@ -1,1 +1,1 @@
-MONGODB_HOST: mongodb.rameshaws.site
+MONGODB_HOST: mongodb-{{ env }}.rameshaws.site
