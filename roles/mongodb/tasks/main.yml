@@ -1,0 +1,33 @@
+---
+    - name: 1.copy mongodb repo
+      ansible.builtin.copy:
+        src: mongodb.repo
+        dest: /etc/yum.repos.d/mongodb.repo
+
+    - name: 2.install mongodb
+      ansible.builtin.dnf:
+        name: mongodb-org
+        state: present
+
+    - name: 3.start and enable mongodb service
+      ansible.builtin.service:
+        name: mongod
+        state: started
+        enabled: yes
+
+    - name: 4.ensure mongodb is running
+      ansible.builtin.command: systemctl status mongod
+
+    - name: 5.ensure mongodb is listening on port 27017
+      ansible.builtin.command: netstat -lntp | grep 27017
+
+    - name: 6.allow remote connections
+      ansible.builtin.replace:
+        path: /etc/mongod.conf
+        regexp: "127.0.0.1"
+        replace: "0.0.0.0"
+    
+    - name: 7.restart mongodb service
+      ansible.builtin.service:
+        name: mongod
+        state: restarted

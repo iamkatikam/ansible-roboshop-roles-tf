@@ -1,0 +1,22 @@
+---
+    - name: copy {{ component }} service file
+      ansible.builtin.template:
+        src: "{{ component }}.service.j2"
+        dest: "/etc/systemd/system/{{ component }}.service"
+        mode: '0644'
+
+    - name: Reload systemd to recognize new service
+      ansible.builtin.systemd:
+        daemon_reload: yes
+
+    - name: Start and enable {{ component }} service
+      ansible.builtin.service:
+        name: "{{ component }}"
+        state: started
+        enabled: yes
+    
+    # - name: Ensure {{ component }} service is running
+    #   ansible.builtin.command: systemctl status {{ component }}
+    #   register: catalogue_status
+    #   failed_when: "'Active: active (running)' not in catalogue_status.stdout"
+    #   changed_when: false

@@ -1,0 +1,5 @@
+CART_HOST: cart.rameshaws.site
+USER_HOST: user.rameshaws.site
+RABBITMQ_HOST: rabbitmq.rameshaws.site
+RABBITMQ_USER: roboshop
+RABBITMQ_PASSWORD: roboshop123

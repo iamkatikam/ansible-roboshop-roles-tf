@@ -1,0 +1,21 @@
+---
+    - name: 1.Install MySQL server
+      ansible.builtin.dnf:
+        name: mysql-server
+        state: present
+
+    - name: 2.Start and enable MySQL service
+      ansible.builtin.service:
+        name: mysqld
+        state: started
+        enabled: yes
+    - name: 3.install boto3 and botocore packages
+      ansible.builtin.pip:
+        name: "{{ item }}"
+        executable: pip3.9
+      loop:
+      - boto3
+      - botocore
+
+    - name: 4.setup root password
+      ansible.builtin.command: mysql_secure_installation --set-root-pass {{ MYSQL_ROOT_PASSWORD }}

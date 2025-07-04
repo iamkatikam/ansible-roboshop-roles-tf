@@ -1,0 +1,5 @@
+CATALOGUE_HOST: catalogue.rameshaws.site
+USER_HOST: user.rameshaws.site
+CART_HOST: cart.rameshaws.site
+SHIPPING_HOST: shipping.rameshaws.site
+PAYMENT_HOST: payment.rameshaws.site

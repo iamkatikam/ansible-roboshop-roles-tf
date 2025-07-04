@@ -1,0 +1,28 @@
+---
+    - name: 1.Copy rabbitmq repo
+      ansible.builtin.copy:
+        src: rabbitmq.repo
+        dest: /etc/yum.repos.d/rabbitmq.repo
+        #remote_src: yes
+      
+    - name: 2.Install RabbitMQ
+      ansible.builtin.dnf:
+        name: rabbitmq-server
+        state: present
+
+    - name: 3.Start and enable RabbitMQ service
+      ansible.builtin.service:
+        name: rabbitmq-server
+        state: started
+        enabled: yes
+
+    - name: 4.Create RabbitMQ user
+      community.rabbitmq.rabbitmq_user:
+        user: roboshop 
+        password: roboshop123
+        permissions:
+          - vhost: /
+            configure_priv: .*
+            read_priv: .*
+            write_priv: .*
+        state: present

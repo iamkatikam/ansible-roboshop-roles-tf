@@ -1,0 +1,29 @@
+---
+    - name: 1.Disable default Redis module
+      ansible.builtin.command: dnf module disable redis -y
+
+    - name: 2.Enable Redis module
+      ansible.builtin.command: dnf module enable redis:7 -y
+
+    - name: 3.Install Redis
+      ansible.builtin.dnf:
+        name: redis
+        state: present
+
+    - name: 4.Allow Redis to listen on all interfaces
+      ansible.builtin.replace:
+        path: /etc/redis/redis.conf
+        regexp: "127.0.0.1"
+        replace: "0.0.0.0"
+  
+    - name: 5.Disable protected mode in Redis
+      ansible.builtin.lineinfile:
+        path: /etc/redis/redis.conf
+        regexp: "protected-mode"
+        line: "protected-mode no"
+
+    - name: 6.Start and enable Redis service
+      ansible.builtin.service:
+        name: redis
+        state: started
+        enabled: yes
