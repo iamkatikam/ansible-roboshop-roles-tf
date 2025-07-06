@@ -1,2 +1,2 @@
-REDIS_HOST: redis.rameshaws.site
-CATALOGUE_HOST: catalogue.rameshaws.site
+REDIS_HOST: redis-{{ env }}.rameshaws.site
+CATALOGUE_HOST: catalogue.backend-{{ env }}.rameshaws.site
